@@ -18,6 +18,12 @@ def extract_all(main_directory,output_directory):
     if not os.path.exists("Archives"):
         os.walk(output_directory)
         os.makedirs("Archives")
+    if not os.path.exists("Jars"):
+        os.walk(output_directory)
+        os.makedirs("Jars")
+    if not os.path.exists("Executables"):
+        os.walk(output_directory)
+        os.makedirs("Executables")
 
 
 
@@ -44,8 +50,16 @@ def extract_all(main_directory,output_directory):
                         archive_path = os.path.join(root, file);
                         shutil.move(archive_path, 'Archives');
                     else:
-                        other_path = os.path.join(root, file);
-                        shutil.move(other_path, 'Other');
+                        if file.lower().endswith((".jar")):
+                            jar_path = os.path.join(root, file);
+                            shutil.move(jar_path, 'Jars');
+                        else:
+                            if file.lower().endswith((".Executables")):
+                                Executables_path = os.path.join(root, file);
+                                shutil.move(Executables_path, 'Executables');
+                            else:
+                                other_path = os.path.join(root, file);
+                                shutil.move(other_path, 'Other');
 
     print("Scraping complete!");
 
